@@ -1,2 +1,2 @@
 # flood-gate
-Concurrent HTTP load tester
+Concurrent HTTP load tester in Java.
