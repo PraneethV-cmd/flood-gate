@@ -78,7 +78,7 @@ public class LoadTester implements Runnable {
         long startTime = System.nanoTime();
         boolean hasError = false;
         int responseSize = 0;
-
+    
         try {
             HttpUriRequest request;
             if (method.equalsIgnoreCase("GET")) {
@@ -92,14 +92,23 @@ public class LoadTester implements Runnable {
             } else {
                 throw new IllegalArgumentException("Unsupported HTTP method: " + method);
             }
-
+    
             HttpResponse response = httpClient.execute(request);
-            String responseBody = EntityUtils.toString(response.getEntity());
-            responseSize = responseBody.length();
+            int statusCode = response.getStatusLine().getStatusCode();
+            
+            // Consider any non-2xx status code as an error
+            if (statusCode < 200 || statusCode >= 300) {
+                hasError = true;
+                System.out.println("Received error status code: " + statusCode + " for " + url);
+            } else {
+                String responseBody = EntityUtils.toString(response.getEntity());
+                responseSize = responseBody.length();
+            }
         } catch (IOException e) {
             hasError = true;
+            System.out.println("Error connecting to " + url + ": " + e.getMessage());
         }
-
+    
         long durationNanos = System.nanoTime() - startTime;
         stats.update(responseSize, durationNanos, hasError);
     }

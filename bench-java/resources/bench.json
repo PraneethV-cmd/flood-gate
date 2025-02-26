@@ -2,19 +2,12 @@
     "requests": [
         {
             "method": "GET",
-            "endpoint": "/get/",
+            "endpoint": "/api/admin/getAllDepartments",
             "data": "",
             "connections": 5,
-            "rate": 100
-        },
-        {
-            "method": "POST",
-            "endpoint": "/post/",
-            "data": "",
-            "connections": 3,
             "rate": 100
         }
     ],
     "host": "http://localhost:8080",
     "duration": 5
-}
+}   
