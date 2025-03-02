@@ -1,0 +1,13 @@
+{
+    "requests": [
+        {
+            "method": "GET",
+            "endpoint": "/api/admin/getAllDepartments",
+            "data": "",
+            "connections": 5,
+            "rate": 100
+        }
+    ],
+    "host": "http://localhost:8080",
+    "duration": 5
+}   
